@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0;
+        overflow: hidden;
+    }
+
+    .container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1.hover-trigger {
+        color: black;
+        font-family: Arial, sans-serif;
+        transition: color 0.3s ease;
+        z-index: 10;
+    }
+
+    .svg-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .svg-element {
+        position: absolute;
+        stroke-width: 2;
+        fill: none;
+        opacity: 0;
+        animation: fadeIn 1s forwards ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes draw {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    .animated-svg {
+        stroke: black;
+        stroke-width: 2;
+        fill: none;
+        stroke-dasharray: 794;
+        stroke-dashoffset: 794;
+        animation: draw 5s linear forwards;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1 class="hover-trigger">Hover Over Me</h1>
+        <div class="svg-container">
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 117.81 107.8"
+                style="width: 50%; stroke-dashoffset: -794px; stroke-dasharray: 794;">
+                <path
+                    d="M86.69.1s-32,152-39,94S35.69,8.1,35.69,8.1c0,0,86.41,66.19,81.41,66.19-.57,0-2.78.23-6.21.62-26.86,3.03-128.47,15.83-99.21,5.19C44.69,68.1,93.69,5.1,93.69,5.1L24.69,61.1s-45.59,32.1-11.59,30.1,79-16,85-19,8,12,8,12">
+                </path>
+            </svg>
+        </div>
+    </div>
+    <script>
+        document.querySelector('.hover-trigger').addEventListener('mouseenter', () => {
+            const svgContainer = document.querySelector('.svg-container');
+            const intervalId = setInterval(() => {
+                createCustomSVG(svgContainer);
+            }, 500); // Adjust time to control the frequency of SVG creation
+
+            document.querySelector('.hover-trigger').addEventListener('mouseleave', () => {
+                clearInterval(intervalId);
+                svgContainer.innerHTML = ''; // Remove all SVGs on hover out
+            }, { once: true });
+        });
+
+        function createCustomSVG(container) {
+            const svgNamespace = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNamespace, "svg");
+
+            svg.setAttribute("class", "svg-element animated-svg");
+            svg.setAttribute("viewBox", "0 0 117.81 107.8");
+            svg.style.width = "50%";
+            svg.style.top = `${Math.random() * 90}vh`;
+            svg.style.left = `${Math.random() * 90}vw`;
+
+            const path = document.createElementNS(svgNamespace, "path");
+            path.setAttribute("d", "M86.69.1s-32,152-39,94S35.69,8.1,35.69,8.1c0,0,86.41,66.19,81.41,66.19-.57,0-2.78.23-6.21.62-26.86,3.03-128.47,15.83-99.21,5.19C44.69,68.1,93.69,5.1,93.69,5.1L24.69,61.1s-45.59,32.1-11.59,30.1,79-16,85-19,8,12,8,12");
+
+            svg.appendChild(path);
+            container.appendChild(svg);
+        }
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .heading-container {
+        position: relative;
+        margin: 20px;
+    }
+
+    h1 {
+        color: black;
+        transition: color 0.3s ease;
+        font-family: Arial, sans-serif;
+    }
+
+    .hover-svg {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 120px;
+        height: 120px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        stroke-dasharray: 300;
+        stroke-dashoffset: 300;
+    }
+
+    .heading-container:hover h1 {
+        color: gray;
+    }
+
+    .heading-container:hover .hover-svg {
+        opacity: 1;
+        animation: draw 2s forwards ease-in-out;
+    }
+
+    @keyframes draw {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="heading-container">
+            <h1>Heading 1</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 117.81 107.8"
+                style="width: 50%; stroke-dashoffset: -794px; stroke-dasharray: 794;">
+                <path
+                    d="M86.69.1s-32,152-39,94S35.69,8.1,35.69,8.1c0,0,86.41,66.19,81.41,66.19-.57,0-2.78.23-6.21.62-26.86,3.03-128.47,15.83-99.21,5.19C44.69,68.1,93.69,5.1,93.69,5.1L24.69,61.1s-45.59,32.1-11.59,30.1,79-16,85-19,8,12,8,12">
+                </path>
+            </svg>
+        </div>
+        <div class="heading-container">
+            <h1>Heading 2</h1>
+            <svg class="hover-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M10,50 C30,10 70,10 90,50 C70,90 30,90 10,50 Z" stroke="black" stroke-width="2" fill="none" />
+            </svg>
+        </div>
+        <div class="heading-container">
+            <h1>Heading 3</h1>
+            <svg class="hover-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M50,10 L70,90 L10,30 H90 L30,90 Z" stroke="black" stroke-width="2" fill="none" />
+            </svg>
+        </div>
+        <div class="heading-container">
+            <h1>Heading 4</h1>
+            <svg class="hover-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M10,10 L90,10 Q70,50 90,90 L10,90 Q30,50 10,10 Z" stroke="black" stroke-width="2"
+                    fill="none" />
+            </svg>
+        </div>
+        <div class="heading-container">
+            <h1>Heading 5</h1>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 117.81 107.8"
+                style="width: 50%; stroke-dashoffset: -794px; stroke-dasharray: 794;">
+                <path
+                    d="M86.69.1s-32,152-39,94S35.69,8.1,35.69,8.1c0,0,86.41,66.19,81.41,66.19-.57,0-2.78.23-6.21.62-26.86,3.03-128.47,15.83-99.21,5.19C44.69,68.1,93.69,5.1,93.69,5.1L24.69,61.1s-45.59,32.1-11.59,30.1,79-16,85-19,8,12,8,12">
+                </path>
+            </svg>
+        </div>
+        <div class="heading-container">
+            <h1>Heading 6</h1>
+            <svg class="hover-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M50,10 Q70,30 50,50 Q30,70 50,90 Q70,70 50,50 Q30,30 50,10 Z" stroke="black" stroke-width="2"
+                    fill="none" />
+            </svg>
+        </div>
+        <div class="heading-container">
+            <h1>Heading 7</h1>
+            <svg class="hover-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M10,10 L50,50 L90,10 L70,50 L90,90 L50,70 L10,90 L30,50 Z" stroke="black" stroke-width="2"
+                    fill="none" />
+            </svg>
+        </div>
+        <div class="heading-container">
+            <h1>Heading 8</h1>
+            <svg class="hover-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M10,10 L90,90 M90,10 L10,90" stroke="black" stroke-width="2" fill="none" />
+            </svg>
+        </div>
+        <div class="heading-container">
+            <h1>Heading 9</h1>
+            <svg class="hover-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M10,10 L90,10 L50,50 L90,90 L10,90 L50,50 Z" stroke="black" stroke-width="2" fill="none" />
+            </svg>
+        </div>
+        <div class="heading-container">
+            <h1>Heading 10</h1>
+            <svg class="hover-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                <path d="M50,10 L30,90 L70,90 Z" stroke="black" stroke-width="2" fill="none" />
+            </svg>
+        </div>
+    </div>
+
+</body>
+
+</html> -->
+--> -->
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0;
+        overflow: hidden;
+    }
+
+    .container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    h1.hover-trigger {
+        color: black;
+        font-family: Arial, sans-serif;
+        transition: color 0.3s ease;
+        z-index: 10;
+    }
+
+    .svg-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    .svg-element {
+        position: absolute;
+        stroke-width: 2;
+        fill: none;
+        opacity: 0;
+        animation: fadeIn 1s forwards ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1 class="hover-trigger">Hover Over Me</h1>
+        <div class="svg-container"></div>
+    </div>
+    <script>
+        document.querySelector('.hover-trigger').addEventListener('mouseenter', () => {
+            const svgContainer = document.querySelector('.svg-container');
+            const intervalId = setInterval(() => {
+                createRandomSVG(svgContainer);
+            }, 500); // Adjust time to control the frequency of SVG creation
+
+            document.querySelector('.hover-trigger').addEventListener('mouseleave', () => {
+                clearInterval(intervalId);
+                svgContainer.innerHTML = ''; // Remove all SVGs on hover out
+            }, { once: true });
+        });
+
+        function createRandomSVG(container) {
+            const svgNamespace = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNamespace, "svg");
+            const shapeType = Math.random();
+
+            svg.setAttribute("class", "svg-element");
+            svg.setAttribute("width", "100");
+            svg.setAttribute("height", "100");
+
+            let shape;
+            if (shapeType < 0.33) {
+                shape = document.createElementNS(svgNamespace, "circle");
+                shape.setAttribute("cx", "50");
+                shape.setAttribute("cy", "50");
+                shape.setAttribute("r", "40");
+            } else if (shapeType < 0.66) {
+                shape = document.createElementNS(svgNamespace, "rect");
+                shape.setAttribute("x", "10");
+                shape.setAttribute("y", "10");
+                shape.setAttribute("width", "80");
+                shape.setAttribute("height", "80");
+            } else {
+                shape = document.createElementNS(svgNamespace, "path");
+                shape.setAttribute("d", "M10,10 L90,10 L50,90 Z");
+            }
+
+            shape.setAttribute("stroke", "black");
+            svg.appendChild(shape);
+
+            svg.style.top = `${Math.random() * 90}vh`;
+            svg.style.left = `${Math.random() * 90}vw`;
+
+            container.appendChild(svg);
+
+            // Add more elements like text or different SVGs if desired
+            if (Math.random() > 0.5) {
+                createRandomText(container);
+            }
+        }
+
+        function createRandomText(container) {
+            const text = document.createElement("div");
+            text.className = "svg-element";
+            text.style.position = "absolute";
+            text.style.fontSize = "24px";
+            text.style.color = "black";
+            text.textContent = ["Hello", "World", "SVG", "Hover", "Random"][Math.floor(Math.random() * 5)];
+
+            text.style.top = `${Math.random() * 90}vh`;
+            text.style.left = `${Math.random() * 90}vw`;
+
+            container.appendChild(text);
+        }
+
+    </script>
+</body>
+
+</html> -->

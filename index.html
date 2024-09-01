@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<style>
+    /* Webkit browsers (Chrome, Safari) */
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        /* Track color */
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #3c9346;
+        /* Scrollbar thumb color */
+        border-radius: 10px;
+        border: 3px solid #f0f0f0;
+
+        /* Adds padding around the thumb */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #357ab8;
+        /* Hover state color */
+    }
+
+    /* Firefox */
+    body {
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: #4a90e2 #f0f0f0;
+        /* thumb color and track color */
+    }
+
+    .parentt {
+        display: flex;
+        background: white;
+        min-height: 100vh;
+    }
+
+    .Left {
+        /* background: red; */
+        width: 60vw;
+    }
+
+    .Right {
+        width: 40vw;
+        /* background: blue; */
+    }
+
+    #image {
+        width: 400px;
+        height: 400px;
+        border-radius: 10px;
+    }
+
+    #image,
+    #title,
+    #button {
+        opacity: 0;
+    }
+
+    .opacity-0 {
+        opacity: 0;
+    }
+
+    .opacity-100 {
+        opacity: 1;
+    }
+
+    .Third h3 :hover {
+        color: #cccccc;
+    }
+</style>
+
+<body>
+    <div class="w-full bg-zinc-900">
+        <div class="parent w-full h-[2000vh] relative top-0 left-0">
+            <div class="w-full sticky top-0 left-0 h-screen">
+                <canvas class="w-full h-screen" id="frame"></canvas>
+                <!-- //2nd div -->
+                <div class="animate1 absolute  z-[2] text-white bottom-10 w-1/2 left-10 ">
+                    <h1 class="leading-20 font-[100] TEXT-3xl">&copy; 2024 MAREE LTD</h1>
+                    <H2 class="TEXT-3xl">SHAPING BRANDS -> CRAFTING MOTION</H2>
+                </div>
+                <!-- //3rd -->
+                <div class=" absolute animate2 flex z-[2] text-white bottom-10 w-1/2 right-10 text-right opacity-0 ">
+                    <h1 class="leading-20 font-[100] uppercase text-6xl ">Transformating Visions</h1>
+                    <h1 class=" text-center text-xl w-1/2">Building identity and inspiring action.Sculpting digital
+                        expressions</h1>
+                </div>
+                <!-- 4rth -->
+                <div
+                    class="absolute animate3 z-[2] text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center opacity-0">
+                    <h1 class="text-6xl leading-20 font-[100] uppercase">Elevating Aesthentics</h1>
+                    <h1 class="text-xl">Crafting and exploring new horizons. Evolving narratives and elevating
+                        aesthetics in every project.</h1>
+                </div>
+                <!-- fifth -->
+                <div class="w-1/3 panel translate-x-full h-screen bg-white absolute right-0 top-0 z-[2] p-10 ">
+                    <h3 class="panellem text-xl font-[100]">&copy; MAREE LTD</h3>
+                    <p class="panellem mt-10 text-xl">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates, error? Vero odit nobis
+                        ipsam eius ullam labore repellat laborum explicabo!
+                    </p>
+                    <button class="panellem border-[1px] px-3 py-2 border-[#555] font-[100] mt-6">Get Review</button>
+
+                    <div class="panellem absolute bottom-10">
+                        <h3 class="text-xl">Inovating Design</h3>
+                        <p class="text-sm mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto minus,
+                            nihil excepturi debitis vel voluptatibus?</p>
+                        <button
+                            class="bg-black text-white px-7 text-sm mt-4 py-4 font-[100] capitalize">Experience</button>
+                    </div>
+                </div>
+                <!-- sisth -->
+                <div
+                    class="absolute z-[2] panelism text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-6xl tracking-tighter opacity-0   ">
+                    <h1 class="flex items-center"> &copy; Panalism<span
+                            class=" span line w-10 h-1 bg-white  inline-block mx-2"></span> <span>2048</span></h1>
+                </div>
+            </div>
+        </div>
+        <!-- //second page -->
+        <div class="second w-full bg-white">
+            <h1 class="text-6xl tracking-tighter ml-4 mt-2">&reg;OUR Resent work</h1>
+        </div>
+
+        <div class="parentt flex w-screen flex-row">
+            <!-- Left Div -->
+            <div class="w-2/5 p-4 relative Left  mt-[20vh]">
+                <div id="content" class="opacity-0 transition-opacity duration-300">
+                    <!-- Content that appears on hover or click -->
+                    <img id="image" src="" alt="Image" class="w-full h-auto mb-4">
+                    <h2 id="title" class="text-2xl font-bold mb-2"></h2>
+                    <p id="paragraph" class=" w-[25vw]  text-xl font-semibold mb-2 text-left"></p>
+                    <button id="button" class="px-4 py-2 bg-blue-500 text-white rounded">Click Me</button>
+                </div>
+            </div>
+
+            <!-- Right Div -->
+            <div class="Right  w-2/5 p-4 flex flex-col space-y-4 gap-6">
+                <h3 class="hoverable cursor-pointer text-7xl " data-image="image10.jpg" data-title="Sawasdee"
+                    data-button="Sawasdee"
+                    data-paragraph="hi there this is maree what is happening in life  are u happy for what is going on Sawasdee">
+                    Sawasdee
+                </h3>
+                <h3 class="hoverable cursor-pointer text-7xl" data-image="image9.png" data-title="Konnichiwa"
+                    data-button="Konnichiwa"
+                    data-paragraph="hi there this is me i hope u are ok be happey life is ... and we will go onw day so do not take it seriously i hope u are happy Konnichiwa ">
+                    Konnichiwa
+                </h3>
+                <h3 class="hoverable cursor-pointer text-7xl" data-image="image8.jpg" data-title="Namaste"
+                    data-button="Namaste"
+                    data-paragraph="Namaste kasa ha ap ap modi sab sa mila wo kab sa ap ko dund raha ha puja ka waqat ho raha ha shub muhurat khatam ho na ma bs 5 mins ha jaldi sa ... ">
+                    Namaste</h3>
+                <h3 class="hoverable cursor-pointer text-7xl" data-image="image7.jpg" data-title="Salam"
+                    data-button="Salam" data-paragraph="hi there this is maree">
+                    Salam</h3>
+                <h3 class="hoverable cursor-pointer text-7xl" data-image="image6.jpg" data-title="Guten
+                " data-button="Guten
+                    " data-paragraph="hi there this is maree">Guten</h3>
+                <h3 class="hoverable cursor-pointer text-7xl" data-paragraph="hi there this is maree"
+                    data-image="image5.jpg" data-title="Ciao
+                    " data-button="Ciao
+                    ">Ciao</h3>
+                <h3 class="hoverable cursor-pointer text-7xl" data-paragraph="hi there this is maree"
+                    data-image="image4.png" data-title="Aloha" data-button="Learn Aloha">Aloha</h3>
+                <h3 class="hoverable cursor-pointer text-7xl" data-paragraph="hi there this is maree"
+                    data-image="image3.jpg" data-title="Bonjour" data-button="Learn Bonjour">Bonjour</h3>
+                <h3 class="hoverable cursor-pointer text-7xl" data-paragraph="hi there this is maree"
+                    data-image="image2.jpg" data-title="Hola" data-button="Learn Hola">Hola</h3>
+                <h3 class="text-7xl hoverable cursor-pointer" data-paragraph="hi there this is maree"
+                    data-image="image1.jpg" data-title="Shalom" data-button="Learn hibru">Shalom</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Your main script -->
+    <script src="index.js"></script>
+
+
+    <script>
+        document.querySelectorAll('.hoverable').forEach(item => {
+            item.addEventListener('mouseenter', function () {
+                const image = this.getAttribute('data-image');
+                const title = this.getAttribute('data-title');
+                const button = this.getAttribute('data-button');
+                const paragraph = this.getAttribute('data-paragraph');
+
+                const imageElement = document.getElementById('image');
+                const titleElement = document.getElementById('title');
+                const buttonElement = document.getElementById('button');
+                const paragraphElement = document.getElementById('paragraph');
+
+                imageElement.src = image;
+                titleElement.textContent = title;
+                buttonElement.textContent = button;
+                paragraphElement.textContent = paragraph;
+
+                gsap.fromTo(
+                    [imageElement, titleElement, buttonElement, paragraphElement],
+                    { x: -300, opacity: 0 },
+                    { x: 0, opacity: 1, stagger: 0.2, duration: 0.7, ease: 'power2.out' }
+                );
+
+                document.getElementById('content').classList.remove('opacity-0');
+            });
+
+            item.addEventListener('mouseleave', function () {
+                // Optionally add any styles or actions when the mouse leaves the h3 element
+                gsap.To(
+                    [imageElement, titleElement, buttonElement, paragraphElement],
+                    { x: 0, opacity: 1 },
+                    { x: -300, opacity: 0, stagger: 0.2, duration: 2, ease: 'power2.out' }
+                );
+            });
+
+            item.addEventListener('click', function () {
+                const contentDiv = document.getElementById('content');
+                if (contentDiv.classList.contains('opacity-0')) {
+                    contentDiv.classList.remove('opacity-0');
+                }
+            });
+        });
+
+        // h3 animation
+
+        document.querySelectorAll(".Right h3")
+            .forEach(function (elem) {
+                gsap.from(elem, {
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 90%",
+                        end: "bottom 20%",
+                        scrub: 2
+                    },
+                    opacity: .3
+                })
+            })
+    </script>
+</body>
+
+</html>

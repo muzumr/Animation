@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<!-- GSAP for Animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+
+<style>
+    .parent {
+        display: flex;
+        background: #000;
+        min-height: 100vh;
+    }
+
+    .Left {
+        background: red;
+        width: 60vw;
+    }
+
+    .Right {
+        width: 40vw;
+        background: blue;
+    }
+
+    img {
+        width: 300px;
+    }
+
+    #image,
+    #title,
+    #button {
+        opacity: 0;
+    }
+
+    .opacity-0 {
+        opacity: 0;
+    }
+
+    .opacity-100 {
+        opacity: 1;
+    }
+</style>
+
+<body>
+    <div class="parent flex w-screen flex-row">
+        <!-- Left Div -->
+        <div class="w-3/5 p-4 relative Left">
+            <div id="content" class="opacity-0 transition-opacity duration-300">
+                <!-- Content that appears on hover or click -->
+                <img id="image" src="" alt="Image" class="w-full h-auto mb-4">
+                <h2 id="title" class="text-2xl font-bold mb-2"></h2>
+                <p id="paragraph" class="text-xl font-semibold mb-2"></p>
+                <button id="button" class="px-4 py-2 bg-blue-500 text-white rounded">Click Me</button>
+            </div>
+        </div>
+
+        <!-- Right Div -->
+        <div class="Right bg-red-500 w-2/5 p-4 flex flex-col space-y-4">
+            <h3 class="hoverable cursor-pointer" data-image="image1.jpg" data-title="HTML" data-button="Learn  HTML "
+                data-paragraph="hi there this is maree">HTML
+            </h3>
+            <h3 class="hoverable cursor-pointer" data-image="image2.jpg" data-title="CSS" data-button="Learn CSS">CSS
+            </h3>
+            <h3 class="hoverable cursor-pointer" data-image="image3.jpg" data-title="JavaScript"
+                data-button="Learn JavaScript">JavaScript</h3>
+            <h3 class="hoverable cursor-pointer" data-image="image4.jpg" data-title="React" data-button="Learn React">
+                React</h3>
+            <h3 class="hoverable cursor-pointer" data-image="image5.jpg" data-title="Node.js"
+                data-button="Learn Node.js">Node.js</h3>
+            <h3 class="hoverable cursor-pointer" data-image="image6.jpg" data-title="Express.js"
+                data-button="Learn Express.js">Express.js</h3>
+            <h3 class="hoverable cursor-pointer" data-image="image7.jpg" data-title="MongoDB"
+                data-button="Learn MongoDB">MongoDB</h3>
+            <h3 class="hoverable cursor-pointer" data-image="image8.jpg" data-title="Tailwind CSS"
+                data-button="Learn Tailwind">Tailwind CSS</h3>
+            <h3 class="hoverable cursor-pointer" data-image="image9.jpg" data-title="Webpack"
+                data-button="Learn Webpack">Webpack</h3>
+            <h3 class="hoverable cursor-pointer" data-image="image10.jpg" data-title="TypeScript"
+                data-button="Learn TypeScript">TypeScript</h3>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.hoverable').forEach(item => {
+            item.addEventListener('mouseenter', function () {
+                const image = this.getAttribute('data-image');
+                const title = this.getAttribute('data-title');
+                const button = this.getAttribute('data-button');
+                const paragraph = this.getAttribute('data-paragraph');
+
+                const imageElement = document.getElementById('image');
+                const titleElement = document.getElementById('title');
+                const buttonElement = document.getElementById('button');
+                const paragraphElement = document.getElementById('paragraph');
+
+                imageElement.src = image;
+                titleElement.textContent = title;
+                buttonElement.textContent = button;
+                paragraphElement.textContent = paragraph;
+                gsap.fromTo(
+                    [imageElement, titleElement, buttonElement, paragraphElement],
+                    { x: -300, opacity: 0 },
+                    { x: 0, opacity: 1, stagger: 0.2, duration: 0.7, ease: 'power2.out' }
+                );
+
+                document.getElementById('content').classList.remove('opacity-0');
+            });
+
+            item.addEventListener('mouseleave', function () {
+                // Optionally add any styles or actions when the mouse leaves the h3 element
+            });
+
+            item.addEventListener('click', function () {
+                const contentDiv = document.getElementById('content');
+                if (contentDiv.classList.contains('opacity-0')) {
+                    contentDiv.classList.remove('opacity-0');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
